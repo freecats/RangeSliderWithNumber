@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.example.freecats.numberselect.view.RangeSliderWithNumber
+        android:id="@+id/rsn_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        app:rsn_insideRangeLineColor="#0bd97f"
+        app:rsn_insideRangeLineStrokeWidth="5dp"
+        app:rsn_min="0"
+        app:rsn_numberTextColor="#0bd97f"
+        app:rsn_numberTextSize="15sp"
+        app:rsn_outsideRangeLineColor="#f0f0f0"
+        app:rsn_outsideRangeLineStrokeWidth="5dp" />
+
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp" />
+
+    <com.example.freecats.numberselect.view.RangeSliderWithNumber
+        android:id="@+id/rsn_bubble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        app:rsn_insideRangeLineColor="#0bd97f"
+        app:rsn_insideRangeLineStrokeWidth="5dp"
+        app:rsn_isShowBubble="true"
+        app:rsn_isShowRuler="true"
+        app:rsn_max="200"
+        app:rsn_min="50"
+        app:rsn_numberTextColor="#ffffff"
+        app:rsn_numberTextSize="15sp"
+        app:rsn_outsideRangeLineColor="#f0f0f0"
+        app:rsn_outsideRangeLineStrokeWidth="5dp" />
+
+    <TextView
+        android:id="@+id/tv_bubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp" />
+
+    <com.example.freecats.numberselect.view.SeekBarWithNumber
+        android:id="@+id/sbn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="30dp"
+        app:sbn_insideRangeLineColor="#0bd97f"
+        app:sbn_insideRangeLineStrokeWidth="5dp"
+        app:sbn_isShowBubble="true"
+        app:sbn_isShowRuler="true"
+        app:sbn_min="10"
+        app:sbn_rulerInterval="twenty"
+        app:sbn_numberTextColor="#ffffff"
+        app:sbn_numberTextSize="15sp"
+        app:sbn_outsideRangeLineColor="#f0f0f0"
+        app:sbn_outsideRangeLineStrokeWidth="5dp"
+        app:sbn_rulerColor="@color/color_gray_66" />
+
+    <TextView
+        android:id="@+id/tv_sbn_bubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp" />
+
+
+</LinearLayout>

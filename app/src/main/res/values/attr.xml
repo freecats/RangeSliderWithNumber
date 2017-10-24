@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RangeSliderWithNumber">
+        <attr name="rsn_min" format="integer" />
+        <attr name="rsn_max" format="integer" />
+        <attr name="rsn_targetColor" format="color" />
+        <attr name="rsn_numberTextColor" format="color" />
+        <attr name="rsn_numberTextSize" format="dimension" />
+        <attr name="rsn_numberMarginBottom" format="dimension" />
+        <attr name="rsn_isShowBubble" format="boolean" />
+        <attr name="rsn_isLineRound" format="boolean" />
+        <attr name="rsn_bubbleResource" format="reference" />
+        <attr name="rsn_circleFocusBitmap" format="reference" />
+        <attr name="rsn_insideRangeLineColor" format="color" />
+        <attr name="rsn_outsideRangeLineColor" format="color" />
+        <attr name="rsn_insideRangeLineStrokeWidth" format="dimension" />
+        <attr name="rsn_outsideRangeLineStrokeWidth" format="dimension" />
+        <attr name="rsn_isShowRuler" format="boolean" />
+        <attr name="rsn_rulerTextColor" format="color" />
+        <attr name="rsn_rulerColor" format="color" />
+        <attr name="rsn_rulerMarginTop" format="dimension" />
+        <attr name="rsn_rulerAndTextMargin" format="dimension" />
+        <attr name="rsn_rulerTextSize" format="dimension" />
+        <attr name="rsn_rulerInterval">
+            <enum name="ten" value="10" />
+            <enum name="twenty" value="20" />
+            <enum name="forty" value="40" />
+            <enum name="fifty" value="50" />
+            <enum name="hundred" value="100" />
+        </attr>
+
+    </declare-styleable>
+
+
+    <declare-styleable name="SeekBarWithNumber">
+        <attr name="sbn_min" format="integer" />
+        <attr name="sbn_max" format="integer" />
+        <attr name="sbn_targetColor" format="color" />
+        <attr name="sbn_numberTextColor" format="color" />
+        <attr name="sbn_numberTextSize" format="dimension" />
+        <attr name="sbn_numberMarginBottom" format="dimension" />
+        <attr name="sbn_isShowBubble" format="boolean" />
+        <attr name="sbn_isShowNumber" format="boolean" />
+        <attr name="sbn_isLineRound" format="boolean" />
+        <attr name="sbn_isMinRange" format="boolean" />
+        <attr name="sbn_isMaxRange" format="boolean" />
+        <attr name="sbn_bubbleResource" format="reference" />
+        <attr name="sbn_circleFocusBitmap" format="reference" />
+        <attr name="sbn_insideRangeLineColor" format="color" />
+        <attr name="sbn_outsideRangeLineColor" format="color" />
+        <attr name="sbn_insideRangeLineStrokeWidth" format="dimension" />
+        <attr name="sbn_outsideRangeLineStrokeWidth" format="dimension" />
+        <attr name="sbn_isShowRuler" format="boolean" />
+        <attr name="sbn_rulerTextColor" format="color" />
+        <attr name="sbn_rulerColor" format="color" />
+        <attr name="sbn_rulerMarginTop" format="dimension" />
+        <attr name="sbn_rulerAndTextMargin" format="dimension" />
+        <attr name="sbn_rulerTextSize" format="dimension" />
+        <attr name="sbn_rulerInterval">
+            <enum name="ten" value="10" />
+            <enum name="twenty" value="20" />
+            <enum name="forty" value="40" />
+            <enum name="fifty" value="50" />
+            <enum name="hundred" value="100" />
+        </attr>
+
+    </declare-styleable>
+
+</resources>
