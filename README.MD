@@ -72,33 +72,31 @@ single number selector
 ```
 All Done!
 
-
-```
 Attributes support as below
 
-Attributes   | format 
------------- | -------------
- rsn_min      | integer 
- rsn_max     | reference 
- rsn_targetColor     | color  
- rsn_numberTextColor | color 
- rsn_numberTextSize  | dimension 
- rsn_numberMarginBottom       | dimension 
- rsn_isShowBubble       | boolean  
- rsn_bubbleResource   | reference 
- rsn_isLineRound   | boolean 
- rsn_circleFocusBitmap   | reference 
- rsn_insideRangeLineColor  | color 
- rsn_outsideRangeLineColor   | color 
- rsn_insideRangeLineStrokeWidth   | dimension 
- rsn_outsideRangeLineStrokeWidth   | dimension 
- rsn_isShowRuler   | boolean 
-rsn_rulerTextColor   | color 
- rsn_rulerColor   | color 
- rsn_rulerMarginTop   | dimension | 
- rsn_rulerAndTextMargin   | dimension 
- rsn_rulerTextSize   | dimension 
- rsn_rulerInterval   | integer 
+Attributes                      | format 
+------------                    | -------------
+ rsn_min                        | integer 
+ rsn_max                        | reference 
+ rsn_targetColor                | color  
+ rsn_numberTextColor            | color 
+ rsn_numberTextSize             | dimension 
+ rsn_numberMarginBottom         | dimension 
+ rsn_isShowBubble               | boolean  
+ rsn_bubbleResource             | reference 
+ rsn_isLineRound                | boolean 
+ rsn_circleFocusBitmap          | reference 
+ rsn_insideRangeLineColor       | color 
+ rsn_outsideRangeLineColor      | color 
+ rsn_insideRangeLineStrokeWidth | dimension 
+ rsn_outsideRangeLineStrokeWidth| dimension 
+ rsn_isShowRuler                | boolean 
+ rsn_rulerTextColor             | color 
+ rsn_rulerColor                 | color 
+ rsn_rulerMarginTop             | dimension 
+ rsn_rulerAndTextMargin         | dimension 
+ rsn_rulerTextSize              | dimension 
+ rsn_rulerInterval              | integer 
 
 
 # License
