@@ -8,6 +8,11 @@ import com.example.freecats.numberselect.R;
 import com.example.freecats.numberselect.view.RangeSliderWithNumber;
 import com.example.freecats.numberselect.view.SeekBarWithNumber;
 
+/**
+ * Description: MainActivity of project
+ * <br>Date: 2018-08-03 AM 10:06
+ * <br>@author freecats
+ */
 public class MainActivity extends AppCompatActivity {
 
     TextView tvNumber;
@@ -25,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        tvNumber = (TextView) findViewById(R.id.tv_number);
-        tvBubble = (TextView) findViewById(R.id.tv_bubble);
-        tvSbnBubble = (TextView) findViewById(R.id.tv_sbn_bubble);
-        rsnNumber = (RangeSliderWithNumber) findViewById(R.id.rsn_number);
-        rsnBubble = (RangeSliderWithNumber) findViewById(R.id.rsn_bubble);
-        sbnBubble = (SeekBarWithNumber) findViewById(R.id.sbn);
+        tvNumber = findViewById(R.id.tv_number);
+        tvBubble = findViewById(R.id.tv_bubble);
+        tvSbnBubble = findViewById(R.id.tv_sbn_bubble);
+        rsnNumber = findViewById(R.id.rsn_number);
+        rsnBubble = findViewById(R.id.rsn_bubble);
+        sbnBubble = findViewById(R.id.sbn);
 
 
         rsnNumber.setRangeSliderListener(new RangeSliderWithNumber.RangeSliderListener() {

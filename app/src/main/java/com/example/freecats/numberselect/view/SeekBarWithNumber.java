@@ -9,7 +9,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -23,30 +22,50 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Description:
  * Slider following Material Design with two movable targets
  * that allow user to select a range of integers.
+ * <br>Date: 2018-08-01 下午 03:36
+ * <br>@author weibinjun
  */
 public class SeekBarWithNumber extends View {
 
     public interface NumberChangeListener {
+        /**
+         * 数字改变回调
+         *
+         * @param newValue 新数值
+         */
         void onNumberChange(int newValue);
     }
 
-    //Padding that is always added to both sides of slider, in addition to layout_margin
-    private static final int DEFAULT_TOUCH_TARGET_SIZE = Math.round(dp2Px(40));
+    /**
+     * //Padding that is always added to both sides of slider, in addition to layout_margin
+     */
+    private static final int DEFAULT_TOUCH_TARGET_SIZE = Math.round(dp2Px(20));
+    private static final int DEFAULT_TEXT_MIN_SPACE = Math.round(dp2Px(2));
     private static final int DEFAULT_UNPRESSED_RADIUS = 15;
     private static final int DEFAULT_PRESSED_RADIUS = 40;
     private static final int DEFAULT_INSIDE_RANGE_STROKE_WIDTH = (int) dp2Px(5);
     private static final int DEFAULT_OUTSIDE_RANGE_STROKE_WIDTH = (int) dp2Px(5);
     private static final int DEFAULT_MAX = 100;
+    /**
+     * //刻度的宽度
+     */
+    private final float DEFAULT_BIG_SCALE_WITH = 1.7f;
+    private final float DEFAULT_MIDDLE_SCALE_WITH = 1.2f;
+    private final float DEFAULT_SMALL_SCALE_WITH = 1.0f;
 
+    private int defaultTopBottomPadding = Math.round(dp2Px(4));
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private int lineStartX;
     private int lineEndX;
     private int lineLength;
     private int maxPosition = 0;
     private int middleY = 0;
-    //List of event IDs touching targets
+    /**
+     * //List of event IDs touching targets
+     */
     private Set<Integer> isTouchingMinTarget = new HashSet<>();
     private Set<Integer> isTouchingMaxTarget = new HashSet<>();
     private int max = DEFAULT_MAX;
@@ -231,6 +250,8 @@ public class SeekBarWithNumber extends View {
             height = desiredHeight;
         }
 
+        height += defaultTopBottomPadding;
+
         int marginStartEnd = isShowBubble ? bubbleBitmap.getWidth() : Math.max(circleBitmap.getWidth(), maxTextRect.width());
 
         lineLength = (width - marginStartEnd);
@@ -243,6 +264,8 @@ public class SeekBarWithNumber extends View {
         if (isFirstInit) {
             setSelectedValue(selectedNumber != -1 ? selectedNumber : max);
         }
+
+        height += defaultTopBottomPadding;
 
         setMeasuredDimension(width, height);
     }
@@ -318,8 +341,8 @@ public class SeekBarWithNumber extends View {
             float stopY = 0;
             float startY = 0;
             float totalLength = lineLength;
-            int divider = rulerInterval / 10;
-            float scaleLength = (float) lineLength / (float) ((max - min) / (rulerInterval / 10)) / divider;
+            float divider = Float.valueOf(rulerInterval) / 10f;
+            float scaleLength = (float) lineLength / (float) ((max - min) / divider) / divider;
 
             boolean isMinHasText = false;
             boolean isMaxHasText = false;
@@ -343,17 +366,18 @@ public class SeekBarWithNumber extends View {
                     if (i == max) {
                         isMaxHasText = true;
                     }
-                    paint.setStrokeWidth(1.5f);
+                    paint.setStrokeWidth(DEFAULT_BIG_SCALE_WITH);
 
 
                     paint.setColor(rulerColor);
+
                     canvas.drawLine(startX, startY, startX, stopY, paint);
 
-                } else if (i % (rulerInterval / 2) == 0) {
+                } else if (i % (rulerInterval / 2) == 0 && rulerInterval % 10 == 0) {
                     //draw middle scale
                     startY = middleY + circleBitmap.getHeight() / 2 + rulerMarginTop;
                     stopY = startY + rulerNormalHeight * 2;
-                    paint.setStrokeWidth(1.0f);
+                    paint.setStrokeWidth(DEFAULT_MIDDLE_SCALE_WITH);
 
                     paint.setColor(rulerColor);
                     canvas.drawLine(startX, startY, startX, stopY, paint);
@@ -363,7 +387,7 @@ public class SeekBarWithNumber extends View {
                     //draw small scale
                     startY = middleY + circleBitmap.getHeight() / 2 + rulerMarginTop;
                     stopY = startY + rulerNormalHeight;
-                    paint.setStrokeWidth(0.8f);
+                    paint.setStrokeWidth(DEFAULT_SMALL_SCALE_WITH);
 
                     if (i % (rulerInterval / 10) == 0) {
                         paint.setColor(rulerColor);
@@ -373,10 +397,22 @@ public class SeekBarWithNumber extends View {
                 }
 
                 if ((i == max && !isMaxHasText) || (i == min && !isMinHasText)) {
+
                     paint.setColor(rulerTextColor);
                     paint.setTextSize(rulerTextSize);
                     getRulerTextBounds(String.valueOf(i), rulerTextRect);
-                    canvas.drawText(String.valueOf(i), startX - rulerTextRect.width() / 2, startY + rulerNormalHeight * 3 + rulerTextRect.height() + rulerAndTextMargin, paint);
+
+                    float x = startX - rulerTextRect.width() / 2;
+                    //修正最大值与最小值文本与满刻度文本太靠近时显示重叠问题
+                    if (i == max && i % rulerInterval == 1) {
+                        x = startX + DEFAULT_TEXT_MIN_SPACE;
+                    }
+
+                    if (i == min && i % rulerInterval == rulerInterval - 1) {
+                        x = startX - rulerTextRect.width() / 2 - DEFAULT_TEXT_MIN_SPACE;
+                    }
+
+                    canvas.drawText(String.valueOf(i), x, startY + rulerNormalHeight * 3 + rulerTextRect.height() + rulerAndTextMargin, paint);
 
                 }
 
@@ -390,7 +426,7 @@ public class SeekBarWithNumber extends View {
 
     private void drawSelectedTargets(Canvas canvas) {
         paint.setColor(targetColor);
-        canvas.drawCircle(maxPosition, middleY, 20, paint);
+        canvas.drawCircle(maxPosition, middleY, dp2Px(3), paint);
 
         if (!isTouching) {
             canvas.drawBitmap(circleBitmap, maxPosition - circleBitmap.getWidth() / 2, middleY - circleBitmap.getWidth() / 2, paint);
@@ -399,6 +435,15 @@ public class SeekBarWithNumber extends View {
         }
 
 
+    }
+
+    public int getDefaultTopBottomPadding() {
+        return defaultTopBottomPadding;
+    }
+
+    public void setDefaultTopBottomPadding(int defaultTopBottomPadding) {
+        this.defaultTopBottomPadding = defaultTopBottomPadding;
+        invalidate();
     }
 
     private void getTextBounds(String text, Rect rect) {
@@ -411,21 +456,24 @@ public class SeekBarWithNumber extends View {
         paint.getTextBounds(text, 0, text.length(), rect);
     }
 
-    //user has touched outside the target, lets jump to that position
     private void jumpToPosition(int index, MotionEvent event) {
+        //user has touched outside the target, lets jump to that position
         if (event.getX(index) > maxPosition && event.getX(index) <= lineEndX) {
             maxPosition = (int) event.getX(index);
             invalidate();
             callMaxChangedCallbacks();
-        } else if (event.getX(index) < lineStartX && event.getX(index) >= lineStartX) {
+        } else if (event.getX(index) < maxPosition && event.getX(index) >= lineStartX) {
+            maxPosition = (int) event.getX(index);
             invalidate();
+            callMaxChangedCallbacks();
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (!isEnabled())
+        if (!isEnabled()) {
             return false;
+        }
 
         isFirstInit = false;
 
@@ -629,10 +677,6 @@ public class SeekBarWithNumber extends View {
             return min;
         }
         return value;
-    }
-
-    private int getColor(int res) {
-        return ContextCompat.getColor(getContext(), res);
     }
 
     private static float dp2Px(float dp) {

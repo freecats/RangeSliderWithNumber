@@ -2,9 +2,13 @@ package com.example.freecats.numberselect;
 
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
+/**
+ * Description: Resource Utils
+ * <br>Date: 2018-08-03 AM 10:07
+ * <br>@author freecats
+ */
 public class ResUtils {
     public static ResUtils instance = null;
     private static Context mContext;
@@ -25,7 +29,4 @@ public class ResUtils {
         return ContextCompat.getColor(mContext, res);
     }
 
-    public Drawable getDrawable(int res) {
-        return ContextCompat.getDrawable(mContext, res);
-    }
 }

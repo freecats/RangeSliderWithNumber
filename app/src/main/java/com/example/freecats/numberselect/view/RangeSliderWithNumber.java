@@ -9,7 +9,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -25,33 +24,61 @@ import java.util.Set;
 /**
  * Slider following Material Design with two movable targets
  * that allow user to select a range of integers.
+ *
+ * @author freecats
  */
 public class RangeSliderWithNumber extends View {
 
     public interface RangeSliderListener {
+        /**
+         * max value changed callback
+         *
+         * @param newValue 最大值
+         */
         void onMaxChanged(int newValue);
 
+        /**
+         * min value changed callback
+         *
+         * @param newValue 最小值
+         */
         void onMinChanged(int newValue);
     }
 
-    //Padding that is always added to both sides of slider, in addition to layout_margin
+    /**
+     * //Padding that is always added to both sides of slider, in addition to layout_margin
+     */
     private static final int DEFAULT_TOUCH_TARGET_SIZE = Math.round(dp2Px(40));
     private static final int DEFAULT_UNPRESSED_RADIUS = 15;
     private static final int DEFAULT_PRESSED_RADIUS = 40;
     private static final int DEFAULT_INSIDE_RANGE_STROKE_WIDTH = (int) dp2Px(5);
     private static final int DEFAULT_OUTSIDE_RANGE_STROKE_WIDTH = (int) dp2Px(5);
     private static final int DEFAULT_MAX = 100;
+    /**
+     * //刻度的宽度
+     */
+    private final float DEFAULT_BIG_SCALE_WITH = 1.7f;
+    private final float DEFAULT_MIDDLE_SCALE_WITH = 1.2f;
+    private final float DEFAULT_SMALL_SCALE_WITH = 1.0f;
 
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private int lineStartX;
     private int lineEndX;
     private int lineLength;
     private int minPosition = 0;
-    private int minLimit = -1;//最小值选择限定
-    private int maxLimit = -1;//最大值选择限定
+    /**
+     * //最小值选择限定
+     */
+    private int minLimit = -1;
+    /**
+     * //最大值选择限定
+     */
+    private int maxLimit = -1;
     private int maxPosition = 0;
     private int middleY = 0;
-    //List of event IDs touching targets
+    /**
+     * //List of event IDs touching targets
+     */
     private Set<Integer> isTouchingMinTarget = new HashSet<>();
     private Set<Integer> isTouchingMaxTarget = new HashSet<>();
     private int min = 0;
@@ -428,7 +455,7 @@ public class RangeSliderWithNumber extends View {
                     if (i == max) {
                         isMaxHasText = true;
                     }
-                    paint.setStrokeWidth(1.5f);
+                    paint.setStrokeWidth(DEFAULT_BIG_SCALE_WITH);
 
 
                     paint.setColor(rulerColor);
@@ -438,7 +465,7 @@ public class RangeSliderWithNumber extends View {
                     //draw middle scale
                     startY = middleY + circleBitmap.getHeight() / 2 + rulerMarginTop;
                     stopY = startY + rulerNormalHeight * 2;
-                    paint.setStrokeWidth(1.0f);
+                    paint.setStrokeWidth(DEFAULT_MIDDLE_SCALE_WITH);
 
                     paint.setColor(rulerColor);
                     canvas.drawLine(startX, startY, startX, stopY, paint);
@@ -448,7 +475,7 @@ public class RangeSliderWithNumber extends View {
                     //draw small scale
                     startY = middleY + circleBitmap.getHeight() / 2 + rulerMarginTop;
                     stopY = startY + rulerNormalHeight;
-                    paint.setStrokeWidth(0.8f);
+                    paint.setStrokeWidth(DEFAULT_SMALL_SCALE_WITH);
 
                     if (i % (rulerInterval / 10) == 0) {
                         paint.setColor(rulerColor);
@@ -475,8 +502,8 @@ public class RangeSliderWithNumber extends View {
 
     private void drawSelectedTargets(Canvas canvas) {
         paint.setColor(targetColor);
-        canvas.drawCircle(minPosition, middleY, 20, paint);
-        canvas.drawCircle(maxPosition, middleY, 20, paint);
+        canvas.drawCircle(minPosition, middleY, dp2Px(3), paint);
+        canvas.drawCircle(maxPosition, middleY, dp2Px(3), paint);
 
         if (isTouching) {
             if (lastTouchedMin) {
@@ -502,8 +529,8 @@ public class RangeSliderWithNumber extends View {
         paint.getTextBounds(text, 0, text.length(), rect);
     }
 
-    //user has touched outside the target, lets jump to that position
     private void jumpToPosition(int index, MotionEvent event) {
+        //user has touched outside the target, lets jump to that position
         if (event.getX(index) > maxPosition && event.getX(index) <= lineEndX) {
             maxPosition = (int) event.getX(index);
             invalidate();
@@ -517,8 +544,9 @@ public class RangeSliderWithNumber extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (!isEnabled())
+        if (!isEnabled()) {
             return false;
+        }
 
         isFirstInit = false;
 
@@ -757,10 +785,6 @@ public class RangeSliderWithNumber extends View {
             return min;
         }
         return value;
-    }
-
-    private int getColor(int res) {
-        return ContextCompat.getColor(getContext(), res);
     }
 
     private static float dp2Px(float dp) {
